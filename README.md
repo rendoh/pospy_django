@@ -3,6 +3,12 @@
 $ pip install -r requirements.txt
 ```
 
+---
+---
+---
+
+memo
+
 ```
 django-admin startproject PROJECT
 python manage.py startapp APP_NAME

@@ -1,3 +1,5 @@
-from django.contrib import admin
+from django.contrib.admin import site
+from .models import Post, Relationship
 
-# Register your models here.
+site.register(Post)
+site.register(Relationship)
