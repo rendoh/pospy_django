@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'post',
-    'user',
+    'posts',
+    'users',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
 ]
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'users.User'
 
 SITE_ID = 1
 

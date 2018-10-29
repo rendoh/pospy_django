@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import User
+from users.models import User
 
 class Post(models.Model):
     title = models.CharField(max_length=128)

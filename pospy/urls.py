@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
-from post.urls import router as post_router
+from posts.urls import router as post_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
