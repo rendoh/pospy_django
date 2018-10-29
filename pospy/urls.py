@@ -20,5 +20,7 @@ from post.urls import router as post_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(post_router.urls))
+    path('api/', include(post_router.urls)),
+    path('auth/', include('rest_auth.urls')),
+    path('auth/registration/', include('rest_auth.registration.urls')),
 ]
