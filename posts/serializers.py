@@ -3,7 +3,7 @@ from .models import Post
 from users.serializers import UserSerializer
 
 class PostSerializer(serializers.ModelSerializer):
-    # user = UserSerializer()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Post

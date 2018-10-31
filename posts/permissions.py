@@ -1,12 +1,12 @@
+""" permission """
+
 from rest_framework import permissions
 
-SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
-
-class PostPermission(permissions.BasePermission):
-    def has_permission(self, request, view):
-        if view.action == 'create':
-            return request.user and request.user.is_authenticated
-        else:
-            return True
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    """
+    オブジェクトの所有者のみが編集可
+    """
     def has_object_permission(self, request, view, obj):
-        return request.method in SAFE_METHODS or obj.user == request.user
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.user == request.user

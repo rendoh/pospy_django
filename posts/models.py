@@ -7,6 +7,9 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('-created_at',)
+
     def get_followers(self):
         relations = Relationship.objects.filter(owner=self)
         return [relation.follower for relation in relations]
