@@ -26,5 +26,6 @@ urlpatterns = [
     path('api/', include(user_router.urls)),
     path('auth/', include('rest_auth.urls')),
     path('auth/registration/', include('rest_auth.registration.urls')),
-    static.static(MEDIA_URL, document_root=MEDIA_ROOT),
 ]
+
+urlpatterns += static.static(MEDIA_URL, document_root=MEDIA_ROOT)
