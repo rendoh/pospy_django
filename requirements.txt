@@ -1,3 +1,5 @@
 django-rest-auth[with_social]
 django
 djangorestframework
+pillow
+django-imagekit
