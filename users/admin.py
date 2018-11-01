@@ -6,8 +6,7 @@ class MyUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         (None, {
             'fields': ('avatar',)
-            }
-        ),
+        }),
     )
 
 admin.site.register(User, MyUserAdmin)
