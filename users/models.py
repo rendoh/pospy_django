@@ -13,4 +13,3 @@ class User(AbstractUser):
         processors=[ResizeToFill(256, 256)],
         format='JPEG'
     )
-

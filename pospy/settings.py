@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     'rest_auth.registration',
+    'django_cleanup',
 ]
 
 AUTH_USER_MODEL = 'users.User'
