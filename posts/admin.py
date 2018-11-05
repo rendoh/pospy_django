@@ -1,5 +1,4 @@
 from django.contrib.admin import site
-from .models import Post, Relationship
+from .models import Post
 
 site.register(Post)
-site.register(Relationship)
