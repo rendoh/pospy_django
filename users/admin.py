@@ -1,12 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User
+from .models import User, UserAvatar
 
-class MyUserAdmin(UserAdmin):
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {
-            'fields': ('avatar',)
-        }),
-    )
-
-admin.site.register(User, MyUserAdmin)
+admin.site.register(User, UserAdmin)
+admin.site.register(UserAvatar)

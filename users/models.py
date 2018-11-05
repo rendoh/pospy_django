@@ -5,11 +5,14 @@ from imagekit.processors import ResizeToFill
 from django.core.validators import FileExtensionValidator
 
 class User(AbstractUser):
-    avatar = ProcessedImageField(
-        upload_to='avatars/%y/%m/%d',
+    pass
+
+class UserAvatar(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='avatar')
+    created_at = models.DateTimeField(auto_now_add=True)
+    image = ProcessedImageField(
+        upload_to='avatars',
         validators=[FileExtensionValidator(['jpg', 'jpeg', 'png', 'gif'])],
-        blank=True,
-        null=True,
         processors=[ResizeToFill(256, 256)],
         format='JPEG'
     )
