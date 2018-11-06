@@ -1,10 +1,11 @@
 from rest_framework import viewsets, permissions
 from rest_framework import mixins, generics
 from rest_framework.parsers import FormParser, MultiPartParser
+from django.db.models import Q
+import urllib.parse
 from .models import Post, PostImage
 from .serializers import PostSerializer, PostImageSerializer
 from .permissions import IsOwnerOrReadOnly
-from django.db.models import Q
 
 def delete_unused_images(function):
     def wrapper(*args, **kwargs):
@@ -18,7 +19,7 @@ def delete_unused_images(function):
             Q(post=post_id) | Q(post=None)
         )
         for used_post_image in used_post_images:
-            url = str(used_post_image.image)
+            url = urllib.parse.quote(str(used_post_image.image))
             if url in body:
                 used_post_image.post = post
             else:

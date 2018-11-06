@@ -9,8 +9,7 @@ class PostImageSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    images = PostImageSerializer(read_only=True, many=True)
 
     class Meta:
         model = Post
-        fields = ('id', 'title', 'body', 'user', 'created_at', 'images')
+        fields = ('id', 'title', 'body', 'user', 'created_at')
