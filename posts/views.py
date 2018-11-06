@@ -5,16 +5,10 @@ from .models import Post, PostImage
 from .serializers import PostSerializer, PostImageSerializer
 from .permissions import IsOwnerOrReadOnly
 
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-    def perform_update(self, serializer):
-        serializer.save()
+def delete_unused_images(function):
+    def wrapper(*args, **kwargs):
+        function(*args, **kwargs)
+        serializer = args[1]
         images = serializer.data['images']
         body = serializer.data['body']
         for image in images:
@@ -23,8 +17,20 @@ class PostViewSet(viewsets.ModelViewSet):
             if url not in body:
                 post_image = PostImage.objects.get(id=image_id)
                 post_image.delete()
+    return wrapper
 
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
+    @delete_unused_images
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    @delete_unused_images
+    def perform_update(self, serializer):
+        serializer.save()
 
 
 class PostImageView(mixins.CreateModelMixin, generics.GenericAPIView):
