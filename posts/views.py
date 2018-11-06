@@ -8,6 +8,9 @@ from .serializers import PostSerializer, PostImageSerializer
 from .permissions import IsOwnerOrReadOnly
 
 def delete_unused_images(function):
+    """
+    不要なメディアファイルを削除する
+    """
     def wrapper(*args, **kwargs):
         self = args[0]
         serializer = args[1]
@@ -15,6 +18,7 @@ def delete_unused_images(function):
         body = serializer.data['body']
         post_id = serializer.data['id']
         post = Post.objects.get(pk=post_id)
+        # 記事内で使われることが期待される画像と所属先のない画像のオブジェクト
         used_post_images = PostImage.objects.filter(
             Q(post=post_id) | Q(post=None)
         )
