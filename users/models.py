@@ -13,6 +13,21 @@ class User(AbstractUser):
         relations = Relationship.objects.filter(follower=self)
         return [relation.owner for relation in relations]
 
+    def get_post_images(self):
+        from posts.models import PostImage
+        post_images = PostImage.objects.filter(user=self)
+        return post_images
+
+    def delete_unused_post_images(self):
+        """
+        Postと紐付いていない画像を削除
+        """
+        from posts.models import PostImage
+        post_images = PostImage.objects.filter(user=self).filter(post=None)
+        for post_image in post_images:
+            post_image.delete()
+
+
 class UserAvatar(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='avatar')
     created_at = models.DateTimeField(auto_now_add=True)

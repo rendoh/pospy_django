@@ -4,19 +4,27 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from .models import Post, PostImage
 from .serializers import PostSerializer, PostImageSerializer
 from .permissions import IsOwnerOrReadOnly
+from django.db.models import Q
 
 def delete_unused_images(function):
     def wrapper(*args, **kwargs):
-        function(*args, **kwargs)
+        self = args[0]
         serializer = args[1]
-        images = serializer.data['images']
+        function(*args, **kwargs)
         body = serializer.data['body']
-        for image in images:
-            image_id = image['id']
-            url = image['image']
-            if url not in body:
-                post_image = PostImage.objects.get(id=image_id)
-                post_image.delete()
+        post_id = serializer.data['id']
+        post = Post.objects.get(pk=post_id)
+        used_post_images = PostImage.objects.filter(
+            Q(post=post_id) | Q(post=None)
+        )
+        for used_post_image in used_post_images:
+            url = str(used_post_image.image)
+            if url in body:
+                used_post_image.post = post
+            else:
+                used_post_image.post = None
+            used_post_image.save()
+        self.request.user.delete_unused_post_images()
     return wrapper
 
 class PostViewSet(viewsets.ModelViewSet):

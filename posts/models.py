@@ -15,7 +15,14 @@ class Post(models.Model):
 
 class PostImage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='images',
+        null=True,
+        blank=True,
+        default=None
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     image = ProcessedImageField(
         upload_to='posts',
