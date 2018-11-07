@@ -154,3 +154,11 @@ REST_FRAMEWORK = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+
+# https://stackoverflow.com/questions/21563227/django-allauth-example-errno-61-connection-refused
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
