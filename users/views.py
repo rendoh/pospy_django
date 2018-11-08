@@ -7,7 +7,7 @@ from rest_framework.parsers import FormParser, MultiPartParser
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 class UserAvatarView(mixins.CreateModelMixin, generics.GenericAPIView):
 
