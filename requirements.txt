@@ -4,3 +4,4 @@ djangorestframework
 pillow
 django-imagekit
 django-cleanup
+django-cors-headers
