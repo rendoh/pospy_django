@@ -107,7 +107,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         for post_image in post_images:
             post_image.delete()
 
-
 class UserAvatar(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='avatar')
     created_at = models.DateTimeField(auto_now_add=True)

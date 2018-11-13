@@ -153,7 +153,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
@@ -170,3 +170,5 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 # https://stackoverflow.com/questions/21563227/django-allauth-example-errno-61-connection-refused
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
